@@ -1,11 +1,18 @@
 package ass;
 
+import java.io.IOException;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 public class DoctorController {
 
@@ -21,7 +28,7 @@ public class DoctorController {
     @FXML
     private void initialize() { 
         // Add options to the ComboBox
-        docWorkTime.getItems().addAll("0800-1200", "1200-1600", "1600-2000", "0800-1800 (Full Day)");
+        docWorkTime.getItems().addAll("0800-1200", "1200-1600", "1600-2000", "0800-1800");
         
         // Populate the existing doctors list
         populateExistingDoctors();
@@ -64,28 +71,17 @@ public class DoctorController {
         if (!validation.isAlphabetic(docQualification, "Qualification")) return; 
         if (validation.isEmpty(docRoom, "Room Number")) return;
         if (!validation.isNumeric(docRoom, "Room Number")) return;
-
-        System.out.println("Doctor successfully added!");
         clearFields();
         
-        // 2. For now, we'll just print the values to the console to verify
-        System.out.println("--- New Doctor Added ---");
-        System.out.println("ID: " + id);
-        System.out.println("Name: " + name);
-        System.out.println("Specialist: " + specialist);
-        System.out.println("Work Time: " + workTime);
-        System.out.println("Qualification: " + qualification);
-        System.out.println("Room: " + room);
-        System.out.println("------------------------");
+        Doctor newDoc = new Doctor();
+        newDoc.newDoctor(id, name, specialist, workTime, qualification, Integer.parseInt(room));
+        if(HospitalManagement.addDoctor(newDoc)) {
+        	validation.addSuccessAlert("Doctor successfully added.");
+        }
+        else
+        	validation.addFailAlert("You have reached the maximum number of doctors added.");
         
-        // TODO: In the future, you would create a new Doctor object here and add it to your list
-        // For example:
-        // Doctor newDoc = new Doctor();
-        // newDoc.newDoctor(id, name, specialist, workTime, qualification, Integer.parseInt(room));
-        // HospitalManagement.addDoctor(newDoc); // You would need to create this method
-        // populateExistingDoctors(); // Refresh the text area
-
-        // 3. Clear the input fields after adding
+        populateExistingDoctors();
         clearFields();
     }
     
@@ -97,4 +93,16 @@ public class DoctorController {
         docQualification.clear();
         docRoom.clear();
     }
+    
+    //back to main menu
+    public void menu(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("menu.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    
+    
+    
 }

@@ -13,6 +13,6 @@ public class Doctor {
 	}
 	
 	public String showDoctorInfo() {
-		return String.format("[%s] [%s] [%s] [%s] [%d]", id, name, specialist, workTime, room);
+		return String.format("[%s] [%s] [%s] [%s] [%s] [%d]", id, name, specialist, workTime, qualification, room);
 	}
 }

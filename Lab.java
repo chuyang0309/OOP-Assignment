@@ -9,7 +9,7 @@ public class Lab {
 		this.cost = cost;
 	}
 	
-	public void labList() {
-		System.out.printf("[%s] [%d]", lab,cost);
+	public String labList() {
+		return String.format("[%s] [%d]", lab,cost);
 	}
 }

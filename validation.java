@@ -44,11 +44,38 @@ public class validation {
         }
         return true;
     }
+    
+    public static boolean isValidDate(TextField field, String fieldName) {
+        String dateStr = field.getText();
+        // Validate DD-MM-YYYY format
+        String dateFormat = "^(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[0-2])-(20)\\d{2}$";
+        
+        if (dateStr == null || !dateStr.matches(dateFormat)) {
+            showAlert(fieldName + " must be a valid date + in DD-MM-YYYY format!");
+            return false;
+        }
+        return true;
+    }
 
     // Common alert popup
     private static void showAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Validation Error");
+        alert.setTitle("Invalid input!");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+    
+    public static void addSuccessAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Add Success!");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+    public static void addFailAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Add Failed!");
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();

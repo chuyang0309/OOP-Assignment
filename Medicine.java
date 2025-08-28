@@ -11,27 +11,7 @@ public class Medicine {
 		this.count = count;
 	}
 	
-	public void showMedicineInfo() {
-		System.out.printf("[%s] [%s] [%s] [%d] [%d]", name, manufacturer, expiryDate, cost, count);
-	}
-	
-	public void changeMedicineInfo(String selection, String value) {
-		switch (selection) {
-		case "name":
-			this.name = value;
-			break;
-		case "manufacturer":
-			this.manufacturer = value;
-			break;
-		case "expiry date":
-			this.expiryDate = value;
-			break;
-		case "cost":
-			this.cost = Integer.parseInt(value);
-			break;
-		case "count":
-			this.count = Integer.parseInt(value);
-			break;
-		}
+	public String showMedicineInfo() {
+		return String.format("[%s] [%s] [%s] [%d] [%d]", name, manufacturer, expiryDate, cost, count);
 	}
 }
