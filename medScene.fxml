@@ -91,7 +91,7 @@
                   <Font name="System Bold" size="48.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" prefWidth="504.0" text="System Time" textAlignment="CENTER" HBox.hgrow="ALWAYS" />
+            <Label fx:id="systime" alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="84.0" prefWidth="166.0" text="system time" textAlignment="CENTER" HBox.hgrow="ALWAYS" />
          </children>
       </HBox>
    </top>

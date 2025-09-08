@@ -8,77 +8,85 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class LabController {
 
-    @FXML private TextField lab; //get nodes from fxml file according to id
-    @FXML private TextField labCost; 
-    @FXML private TextArea existingLabs; 
+	@FXML
+	private TextField lab; // get nodes from fxml file according to id
+	@FXML
+	private TextField labCost;
+	@FXML
+	private TextArea existingLabs;
+	@FXML
+	private Label systime;
 
-    @FXML
-    private void initialize() { 
-        // Populate the existing lab list
-        populateExistingLabs();
-    }
-    
-    private void populateExistingLabs() {           //Populate the TextArea with data from the HospitalManagement class
-        Lab[] labs = HospitalManagement.getLabs();  //method from main class
-        StringBuilder sb = new StringBuilder();
+	@FXML
+	private void initialize() {
+		// Populate the existing lab list
+		populateExistingLabs();
+		SysTime.showTime(systime);
+	}
 
-        // Loop through the lab array
-        for (Lab lab : labs) {
-            // Check for null entries in the array
-            if (lab != null) {
-                sb.append(lab.labList()).append("\n");
-            }
-        }
-        
-        // Set string to the TextArea
-        existingLabs.setText(sb.toString());
-    }
-    
-    @FXML  //add new lab entry
-    private void addNewLab(ActionEvent event) {
-        // get values from all fields
-        String l = lab.getText();
-        String lCost = labCost.getText();
-        
-        if (validation.isEmpty(lab, "Lab")) return;
-        if (!validation.isAlphabetic(lab, "Lab")) return; 
-        if (validation.isEmpty(labCost, "Lab Cost")) return;
-        if (!validation.isNumeric(labCost, "Lab Cost")) return;
-        clearFields();
-        
-        Lab nLab = new Lab();
-        nLab.newLab(l, Integer.parseInt(lCost));
-        if(HospitalManagement.addLab(nLab)) {
-        	validation.addSuccessAlert("Lab successfully added.");
-        }
-        else
-        	validation.addFailAlert("You have reached the maximum number of labs added.");
-        
-        populateExistingLabs();
-        clearFields();
-    }
-    
-    private void clearFields() {
-    	lab.clear();
-    	labCost.clear();
+	private void populateExistingLabs() { // Populate the TextArea with data from the HospitalManagement class
+		Lab[] labs = HospitalManagement.getLabs(); // method from main class
+		StringBuilder sb = new StringBuilder();
 
-    }
-    
-    //back to main menu
-    public void menu(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("menu.fxml"));
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
-    
-    
-    
+		// Loop through the lab array
+		for (Lab lab : labs) {
+			// Check for null entries in the array
+			if (lab != null) {
+				sb.append(lab.labList()).append("\n");
+			}
+		}
+
+		// Set string to the TextArea
+		existingLabs.setText(sb.toString());
+	}
+
+	@FXML // add new lab entry
+	private void addNewLab(ActionEvent event) {
+		// get values from all fields
+		String l = lab.getText();
+		String lCost = labCost.getText();
+
+		if (validation.isEmpty(lab, "Lab"))
+			return;
+		if (!validation.isAlphabetic(lab, "Lab"))
+			return;
+		if (validation.isEmpty(labCost, "Lab Cost"))
+			return;
+		if (!validation.isNumeric(labCost, "Lab Cost"))
+			return;
+		clearFields();
+
+		Lab nLab = new Lab();
+		nLab.newLab(l, Integer.parseInt(lCost));
+		if (HospitalManagement.addLab(nLab)) {
+			validation.addSuccessAlert("Lab successfully added.");
+		} else
+			validation.addFailAlert("You have reached the maximum number of labs added.");
+
+		populateExistingLabs();
+		clearFields();
+	}
+
+	private void clearFields() {
+		lab.clear();
+		labCost.clear();
+
+	}
+
+	// back to main menu
+	public void menu(ActionEvent event) throws IOException {
+		Parent root = FXMLLoader.load(getClass().getResource("menu.fxml"));
+		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show();
+	}
+
 }
