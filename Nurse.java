@@ -9,9 +9,9 @@ public class Nurse extends Staff{
 	}
 	
 	@Override
-	public void showStaffInfo() {
-		super.showStaffInfo();
-		System.out.printf(" [%s]", shift);
+	public String showStaffInfo() {
+		String string1 = super.showStaffInfo();
+		return String.format(string1," [%s]", shift);
 	}
 	
 }

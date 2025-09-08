@@ -18,7 +18,7 @@ public class HospitalManagement extends Application {
 	private static Medicine[] medicines = new Medicine[100];
 	private static Lab[] labs = new Lab[20];
 	private static Facility[] facilities = new Facility[20];
-	private static Staff[] staff = new Staff[100];
+	private static Staff[] staffs = new Staff[100];
 	private static int docCount = 0, patCount = 0, medCount = 0, labCount = 0, facCount = 0, staffCount = 0;
 
 	@Override
@@ -77,11 +77,21 @@ public class HospitalManagement extends Application {
     public static Doctor[] getDoctors() {
         return doctors;
     }
+    public static Patient[] getPatients() {
+        return patients;
+    }
     public static Lab[] getLabs() {
         return labs;
     }
     public static Medicine[] getMedicines() {
         return medicines;
+    }
+   
+    public static Facility[] getFacilities() {
+        return facilities;
+    }
+    public static Staff[] getStaffs() {
+        return staffs;
     }
     
     
@@ -110,6 +120,36 @@ public class HospitalManagement extends Application {
     	if(medCount<100) {   //check for array size limit
             medicines[medCount]=newMed;
             medCount++;
+            return true;
+    	}
+    	else
+    		return false;
+    }
+    
+    public static boolean addPatient(Patient newPat) {  
+    	if(patCount<100) {   //check for array size limit
+            patients[patCount]=newPat;
+            patCount++;
+            return true;
+    	}
+    	else
+    		return false;
+    }
+    
+    public static boolean addFacility(Facility newFacility) {  
+    	if(facCount<20) {   //check for array size limit
+            facilities[facCount]=newFacility;
+            facCount++;
+            return true;
+    	}
+    	else
+    		return false;
+    }
+    
+    public static boolean addStaff(Staff newStaff) {  
+    	if(staffCount<100) {   //check for array size limit
+            staffs[staffCount]=newStaff;
+            staffCount++;
             return true;
     	}
     	else
