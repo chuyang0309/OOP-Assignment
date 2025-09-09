@@ -1,6 +1,14 @@
 package ass;
 
 
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.PauseTransition;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -10,9 +18,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.util.Duration;
 
 public class HospitalManagement extends Application {
-
 	private static Doctor[] doctors = new Doctor[25];
 	private static Patient[] patients = new Patient[100];
 	private static Medicine[] medicines = new Medicine[100];
@@ -21,17 +30,65 @@ public class HospitalManagement extends Application {
 	private static Staff[] staffs = new Staff[100];
 	private static int docCount = 0, patCount = 0, medCount = 0, labCount = 0, facCount = 0, staffCount = 0;
 
-	@Override
-	public void start(Stage primaryStage) throws Exception {
-		try {
-			Parent root =  FXMLLoader.load(getClass().getResource("menu.fxml"));
-			Scene menu = new Scene(root);
-			primaryStage.setScene(menu);
-			primaryStage.show();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+	// attribute for welcome page animation
+	private int dotCount = 0;
+    private Stage mainStage;
+    private Timeline loadingTimeline;
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        this.mainStage = primaryStage; 
+        showWelcomePage(); 
+    }
+
+    private void showWelcomePage() throws Exception {
+        Stage welcomeStage = new Stage();
+        Parent root = FXMLLoader.load(HospitalManagement.class.getResource("welcomePage.fxml"));
+        Scene welcomeScene = new Scene(root);
+        welcomeStage.setScene(welcomeScene);
+        welcomeStage.initStyle(StageStyle.UNDECORATED);
+        welcomeStage.show();
+
+        // load system date and time
+        Label systime = (Label) root.lookup("#systime");
+        SysTime.showTime(systime);
+        
+        // show loading animation
+        Label loadingLabel = (Label) root.lookup("#loading");
+        loadingTimeline = new Timeline(new KeyFrame(Duration.seconds(0.5), event -> {
+            dotCount = (dotCount + 1) % 4;
+            String dots = "";
+            for (int i = 0; i < dotCount; i++) {
+                dots += ".";
+            }
+            loadingLabel.setText("Loading" + dots);
+        }));
+        loadingTimeline.setCycleCount(Animation.INDEFINITE);
+        loadingTimeline.play();
+
+        //after delay proceed to main menu
+        PauseTransition delay = new PauseTransition(Duration.seconds(3));
+        delay.setOnFinished(event -> {
+            welcomeStage.hide();
+            showMainMenu(); 
+        });
+        delay.play();
+    }
+
+    private void showMainMenu() {
+        if (loadingTimeline != null) {
+            loadingTimeline.stop();
+        }
+        try {
+            Parent menuRoot = FXMLLoader.load(HospitalManagement.class.getResource("menu.fxml"));
+            Scene menu = new Scene(menuRoot);
+            mainStage.setScene(menu);
+            mainStage.setTitle("Hospital Management System");
+            mainStage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     public static void main(String[] args) {
     	initializeSampleData(); 
@@ -72,32 +129,6 @@ public class HospitalManagement extends Application {
 	    medicines[2].newMedicine("Ibuprofen", "QuickRelief", "2026-03-15", 25, 75);
 	    
 	    medCount += 3;
-	    
-	    // Create Patient objects
-	    patients[0] = new Patient();
-	    patients[1] = new Patient();
-	    patients[2] = new Patient();
-
-	    // Initialize each Patient object with sample data using the newPatient method
-	    patients[0].newPatient("P101", "John Smith", "Appendicitis", "Male", "Admitted", 25);
-	    patients[1].newPatient("P102", "Jane Doe", "Pneumonia", "Female", "Admitted", 45);
-	    patients[2].newPatient("P103", "Peter Jones", "Fractured Arm", "Male", "Discharged", 19);
-
-	    // Increment the patient counter by the number of new patients added
-	    patCount += 3;
-	    
-	 // Create Facility objects
-	    facilities[0] = new Facility();
-	    facilities[1] = new Facility();
-	    facilities[2] = new Facility();
-
-	    // Initialize each Facility object with sample data using the newFacility method
-	    facilities[0].newFacility("Main Hospital");
-	    facilities[1].newFacility("Urgent Care Clinic");
-	    facilities[2].newFacility("Rehabilitation Center");
-
-	    // Increment the facility counter by the number of new facilities added
-	    facCount += 3;
 	}
     
     public static Doctor[] getDoctors() {
