@@ -10,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -24,9 +25,12 @@ public class DoctorController {
     @FXML private TextField docRoom;
     @FXML private Button addDoctor; 
     @FXML private TextArea existingDoctors; 
+	@FXML private Label systime;
 
     @FXML
     private void initialize() { 
+		SysTime.showTime(systime);
+
         // Add options to the ComboBox
         docWorkTime.getItems().addAll("0800-1200", "1200-1600", "1600-2000", "0800-1800");
         
@@ -72,6 +76,15 @@ public class DoctorController {
         if (validation.isEmpty(docRoom, "Room Number")) return;
         if (!validation.isNumeric(docRoom, "Room Number")) return;
         clearFields();
+        
+        Doctor[] doctors = HospitalManagement.getDoctors(); 
+        for (Doctor doc : doctors) {
+            // check for duplicate doctors
+            if (doc != null && doc.getId().equalsIgnoreCase(id)) {
+                validation.addFailAlert("Doctor with ID '" + id + "' already exists. Please use a unique ID.");
+                return; // return if duplicate is found
+            }
+        }
         
         Doctor newDoc = new Doctor();
         newDoc.newDoctor(id, name, specialist, workTime, qualification, Integer.parseInt(room));

@@ -11,29 +11,13 @@ public class Staff {
 		this.sex = sex;
 		this.salary = salary;
 	}
-
-	public void showStaffInfo() {
-		System.out.printf("[%s] [%s] [%s] [%s] [%d]", id, name, designation, sex, salary);
+	
+	public String getId() {
+		return id;
 	}
 
-	public void changeStaffInfo(String selection, String value) {
-		switch (selection) {
-		case "name":
-			this.name = value;
-			break;
-		case "desingnation":
-			this.designation = value;
-			break;
-		case "sex":
-			this.sex = value;
-			break;
-		case "salary":
-			this.salary = Integer.parseInt(value);
-			break;
-		}
+	public String showStaffInfo() {
+		return String.format("[%s] [%s] [%s] [%s] [%d]", id, name, designation, sex, salary);
 	}
 
-	public void findStaffById(String id) {
-		if(this.id == id) {showStaffInfo();}
-	}
 }

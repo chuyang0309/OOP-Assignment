@@ -9,6 +9,10 @@ public class Lab {
 		this.cost = cost;
 	}
 	
+	public String getLab() {
+		return lab;
+	}
+	
 	public String labList() {
 		return String.format("[%s] [%d]", lab,cost);
 	}

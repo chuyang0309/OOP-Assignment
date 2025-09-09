@@ -12,6 +12,10 @@ public class Doctor {
 		this.room = room;
 	}
 	
+	public String getId() {
+		return id;
+	}
+	
 	public String showDoctorInfo() {
 		return String.format("[%s] [%s] [%s] [%s] [%s] [%d]", id, name, specialist, workTime, qualification, room);
 	}

@@ -8,12 +8,13 @@ public class Facility {
 		this.facility=facility;
 	}
 	
-	public void showFacilityInfo() {
-		System.out.printf("[%s]", facility);
+	public String getFacility() {
+		return facility;
 	}
 	
-	public void changeFacilityInfo(String value) {
-		facility=value;
+	public String showFacilityInfo() {
+		return String.format("[%s]", facility);
 	}
+	
 	
 }

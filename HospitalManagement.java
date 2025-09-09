@@ -18,7 +18,7 @@ public class HospitalManagement extends Application {
 	private static Medicine[] medicines = new Medicine[100];
 	private static Lab[] labs = new Lab[20];
 	private static Facility[] facilities = new Facility[20];
-	private static Staff[] staff = new Staff[100];
+	private static Staff[] staffs = new Staff[100];
 	private static int docCount = 0, patCount = 0, medCount = 0, labCount = 0, facCount = 0, staffCount = 0;
 
 	@Override
@@ -72,16 +72,52 @@ public class HospitalManagement extends Application {
 	    medicines[2].newMedicine("Ibuprofen", "QuickRelief", "2026-03-15", 25, 75);
 	    
 	    medCount += 3;
+	    
+	    // Create Patient objects
+	    patients[0] = new Patient();
+	    patients[1] = new Patient();
+	    patients[2] = new Patient();
+
+	    // Initialize each Patient object with sample data using the newPatient method
+	    patients[0].newPatient("P101", "John Smith", "Appendicitis", "Male", "Admitted", 25);
+	    patients[1].newPatient("P102", "Jane Doe", "Pneumonia", "Female", "Admitted", 45);
+	    patients[2].newPatient("P103", "Peter Jones", "Fractured Arm", "Male", "Discharged", 19);
+
+	    // Increment the patient counter by the number of new patients added
+	    patCount += 3;
+	    
+	 // Create Facility objects
+	    facilities[0] = new Facility();
+	    facilities[1] = new Facility();
+	    facilities[2] = new Facility();
+
+	    // Initialize each Facility object with sample data using the newFacility method
+	    facilities[0].newFacility("Main Hospital");
+	    facilities[1].newFacility("Urgent Care Clinic");
+	    facilities[2].newFacility("Rehabilitation Center");
+
+	    // Increment the facility counter by the number of new facilities added
+	    facCount += 3;
 	}
     
     public static Doctor[] getDoctors() {
         return doctors;
+    }
+    public static Patient[] getPatients() {
+        return patients;
     }
     public static Lab[] getLabs() {
         return labs;
     }
     public static Medicine[] getMedicines() {
         return medicines;
+    }
+   
+    public static Facility[] getFacilities() {
+        return facilities;
+    }
+    public static Staff[] getStaffs() {
+        return staffs;
     }
     
     
@@ -110,6 +146,36 @@ public class HospitalManagement extends Application {
     	if(medCount<100) {   //check for array size limit
             medicines[medCount]=newMed;
             medCount++;
+            return true;
+    	}
+    	else
+    		return false;
+    }
+    
+    public static boolean addPatient(Patient newPat) {  
+    	if(patCount<100) {   //check for array size limit
+            patients[patCount]=newPat;
+            patCount++;
+            return true;
+    	}
+    	else
+    		return false;
+    }
+    
+    public static boolean addFacility(Facility newFacility) {  
+    	if(facCount<20) {   //check for array size limit
+            facilities[facCount]=newFacility;
+            facCount++;
+            return true;
+    	}
+    	else
+    		return false;
+    }
+    
+    public static boolean addStaff(Staff newStaff) {  
+    	if(staffCount<100) {   //check for array size limit
+            staffs[staffCount]=newStaff;
+            staffCount++;
             return true;
     	}
     	else
