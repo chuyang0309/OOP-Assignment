@@ -37,6 +37,8 @@ public class validation {
 
     // Check if a field contains only alphabets and spaces
     public static boolean isAlphabetic(TextField field, String fieldName) {
+    	if (isEmpty(field, fieldName)) return false;
+    	
         String text = field.getText();
         if (text == null || !text.matches("[a-zA-Z ]+")) {
             showAlert(fieldName + " must contain only alphabets and spaces!");
@@ -46,6 +48,8 @@ public class validation {
     }
     
     public static boolean isValidDate(TextField field, String fieldName) {
+    	if (isEmpty(field, fieldName)) return false;
+    	
         String dateStr = field.getText();
         // Validate DD-MM-YYYY format
         String dateFormat = "^(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[0-2])-(20)\\d{2}$";
@@ -57,6 +61,29 @@ public class validation {
         return true;
     }
 
+    public static boolean isPositiveInteger(TextField field, String fieldName) {
+    	if (isEmpty(field, fieldName)) return false;
+        if (!isNumeric(field, fieldName)) return false;
+        
+        int value = Integer.parseInt(field.getText());
+        if (value < 0) {
+            showAlert(fieldName + " must be a positive number!");
+            return false;
+        }
+        return true;
+    }
+    
+    public static boolean isAlphaNumeric(TextField field, String fieldName) {
+    	if (isEmpty(field, fieldName)) return false;
+    	
+        String text = field.getText();
+        if (text == null || !text.matches("[a-zA-Z0-9]+")) {
+            showAlert(fieldName + " must contain only letters and numbers!");
+            return false;
+        }
+        return true;
+    }
+    
     // Common alert popup
     private static void showAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);

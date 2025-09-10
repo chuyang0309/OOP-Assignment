@@ -6,19 +6,26 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
-<Pane xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<Pane prefHeight="500.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ImageView fitHeight="300.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="300.0" fitWidth="400.0" layoutX="101.0" layoutY="109.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../image/hmslogo.jpg" />
+            <Image url="@hmslogo.png" />
          </image>
       </ImageView>
-      <Label fx:id="systime" layoutX="148.0" layoutY="14.0" text="System time" />
-      
-            <Label fx:id="loading" alignment="CENTER" layoutX="69.0" layoutY="262.0" prefHeight="25.0" prefWidth="163.0" text="Loading..." textFill="#5e6be5">
+      <Label fx:id="systime" layoutX="140.0" layoutY="29.0">
          <font>
-            <Font name="System Bold" size="20.0" />
+            <Font size="25.0" />
+         </font></Label>
+      
+            <Label fx:id="loading" alignment="CENTER" layoutX="169.0" layoutY="434.0" prefHeight="25.0" prefWidth="163.0" text="Loading..." textFill="#5e6be5">
+         <font>
+            <Font name="System Bold" size="25.0" />
+         </font>
+      </Label>
+      <Label layoutX="84.0" layoutY="81.0" text="Welcome to HMS!">
+         <font>
+            <Font name="System Bold" size="39.0" />
          </font>
       </Label>
    </children>

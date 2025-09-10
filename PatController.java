@@ -66,11 +66,11 @@ public class PatController {
         String age = patAge.getText();
         
         if (validation.isEmpty(patID, "Patient ID")) return;
-        if (validation.isEmpty(patName, "Name") || !validation.isAlphabetic(patName, "Name")) return;
-        if (validation.isEmpty(patDisease, "Disease") || !validation.isAlphabetic(patDisease, "Disease")) return;
+        if (!validation.isAlphabetic(patName, "Name")) return;
+        if (!validation.isAlphabetic(patDisease, "Disease")) return;
         if (validation.isEmpty(patSex, "Sex")) return;
         if (validation.isEmpty(patAdmitStatus, "Admit Status")) return;
-        if (validation.isEmpty(patAge, "Age") || !validation.isNumeric(patAge, "Age")) return;
+        if (!validation.isPositiveInteger(patAge, "Age")) return;
         clearFields();
         
     	Patient[] patients = HospitalManagement.getPatients(); 
@@ -85,7 +85,10 @@ public class PatController {
         Patient newPat = new Patient();
         newPat.newPatient(id, name, disease, sex, admitStatus, Integer.parseInt(age));
         if(HospitalManagement.addPatient(newPat)) {
-        	validation.addSuccessAlert("patient successfully added.");
+        	validation.addSuccessAlert("Patient successfully added.");
+        	populateExistingPatients();
+        	NavigationPrompt.showPostAddPrompt(event);
+            clearFields();
         }
         else
         	validation.addFailAlert("You have reached the maximum number of patients added.");

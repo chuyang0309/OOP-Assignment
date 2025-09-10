@@ -50,7 +50,7 @@ public class FacController {
         // get values from all fields
         String fac = facility.getText();
         
-        if (validation.isEmpty(facility, "Facility")) return;
+        if (!validation.isAlphabetic(facility, "Facility")) return;
         clearFields();
         
         Facility[] facilities = HospitalManagement.getFacilities();
@@ -66,6 +66,9 @@ public class FacController {
         newFac.newFacility(fac);
         if(HospitalManagement.addFacility(newFac)) {
         	validation.addSuccessAlert("Facility successfully added.");
+        	populateExistingFacilities();
+        	NavigationPrompt.showPostAddPrompt(event);
+            clearFields();
         }
         else
         	validation.addFailAlert("You have reached the maximum number of Facilitys added.");

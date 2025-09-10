@@ -61,24 +61,15 @@ public class MedController {
 		String cost = medCost.getText();
 		String units = medUnits.getText();
 
-		if (validation.isEmpty(medName, "Name"))
-			return;
 		if (!validation.isAlphabetic(medName, "Name"))
-			return;
-		if (validation.isEmpty(manufacturer, "Manufacturer"))
 			return;
 		if (!validation.isAlphabetic(manufacturer, "Manufacturer"))
 			return;
-		// if (!validation.isEmpty(expiryDate, "Date")) return;
 		if (!validation.isValidDate(expiryDate, "Date"))
 			return;
-		if (validation.isEmpty(medCost, "Cost"))
+		if (!validation.isPositiveInteger(medCost, "Cost"))
 			return;
-		if (!validation.isNumeric(medCost, "Cost"))
-			return;
-		if (validation.isEmpty(medUnits, "Units"))
-			return;
-		if (!validation.isNumeric(medUnits, "Units"))
+		if (!validation.isPositiveInteger(medUnits, "Units"))
 			return;
 		clearFields();
 
@@ -86,6 +77,9 @@ public class MedController {
 		nMed.newMedicine(name, manu, date, Integer.parseInt(cost), Integer.parseInt(units));
 		if (HospitalManagement.addMedicine(nMed)) {
 			validation.addSuccessAlert("Medicine successfully added.");
+			populateExistingMeds();
+        	NavigationPrompt.showPostAddPrompt(event);
+            clearFields();
 		} else
 			validation.addFailAlert("You have reached the maximum number of medicines added.");
 

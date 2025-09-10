@@ -5,6 +5,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -19,7 +21,7 @@
          <children>
             <HBox alignment="CENTER">
                <children>
-                  <Label text="Lab Management ">
+                  <Label text="Lab Management " textFill="#0073ff">
                      <font>
                         <Font name="System Bold" size="28.0" />
                      </font>
@@ -77,12 +79,15 @@
    <top>
       <HBox alignment="CENTER" prefHeight="75.0" BorderPane.alignment="CENTER">
          <children>
-            <Label alignment="CENTER" prefWidth="166.0" text="HMS">
+            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@hmslogo.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="systime" alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="84.0" prefWidth="166.0" textAlignment="CENTER" HBox.hgrow="ALWAYS">
                <font>
-                  <Font name="System Bold" size="48.0" />
-               </font>
-            </Label>
-            <Label fx:id="systime" alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="84.0" prefWidth="166.0" text="system time" textAlignment="CENTER" HBox.hgrow="ALWAYS" />
+                  <Font name="Franklin Gothic Heavy" size="35.0" />
+               </font></Label>
          </children>
       </HBox>
    </top>

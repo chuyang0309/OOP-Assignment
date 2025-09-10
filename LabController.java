@@ -53,13 +53,9 @@ public class LabController {
 		String lText = lab.getText();
 		String lCost = labCost.getText();
 
-		if (validation.isEmpty(lab, "Lab"))
-			return;
 		if (!validation.isAlphabetic(lab, "Lab"))
 			return;
-		if (validation.isEmpty(labCost, "Lab Cost"))
-			return;
-		if (!validation.isNumeric(labCost, "Lab Cost"))
+		if (!validation.isPositiveInteger(labCost, "Lab Cost"))
 			return;
 		clearFields();
 
@@ -76,6 +72,9 @@ public class LabController {
 		nLab.newLab(lText, Integer.parseInt(lCost));
 		if (HospitalManagement.addLab(nLab)) {
 			validation.addSuccessAlert("Lab successfully added.");
+			populateExistingLabs();
+        	NavigationPrompt.showPostAddPrompt(event);
+            clearFields();
 		} else
 			validation.addFailAlert("You have reached the maximum number of labs added.");
 

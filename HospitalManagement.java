@@ -70,12 +70,12 @@ public class HospitalManagement extends Application {
         PauseTransition delay = new PauseTransition(Duration.seconds(3));
         delay.setOnFinished(event -> {
             welcomeStage.hide();
-            showMainMenu(); 
+            showMenu(); 
         });
         delay.play();
     }
 
-    private void showMainMenu() {
+    private void showMenu() {
         if (loadingTimeline != null) {
             loadingTimeline.stop();
         }
@@ -129,6 +129,32 @@ public class HospitalManagement extends Application {
 	    medicines[2].newMedicine("Ibuprofen", "QuickRelief", "2026-03-15", 25, 75);
 	    
 	    medCount += 3;
+	    
+	    // Create Patient objects
+	    patients[0] = new Patient();
+	    patients[1] = new Patient();
+	    patients[2] = new Patient();
+
+	    // Initialize each Patient object with sample data using the newPatient method
+	    patients[0].newPatient("P101", "John Smith", "Appendicitis", "Male", "Admitted", 25);
+	    patients[1].newPatient("P102", "Jane Doe", "Pneumonia", "Female", "Admitted", 45);
+	    patients[2].newPatient("P103", "Peter Jones", "Fractured Arm", "Male", "Discharged", 19);
+
+	    // Increment the patient counter by the number of new patients added
+	    patCount += 3;
+	    
+	 // Create Facility objects
+	    facilities[0] = new Facility();
+	    facilities[1] = new Facility();
+	    facilities[2] = new Facility();
+
+	    // Initialize each Facility object with sample data using the newFacility method
+	    facilities[0].newFacility("Main Hospital");
+	    facilities[1].newFacility("Urgent Care Clinic");
+	    facilities[2].newFacility("Rehabilitation Center");
+
+	    // Increment the facility counter by the number of new facilities added
+	    facCount += 3;
 	}
     
     public static Doctor[] getDoctors() {
@@ -212,4 +238,6 @@ public class HospitalManagement extends Application {
     	else
     		return false;
     }
+    
+
 }

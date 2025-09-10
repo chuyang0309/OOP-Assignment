@@ -66,15 +66,11 @@ public class DoctorController {
         String room = docRoom.getText();
         
         if (validation.isEmpty(docID, "Doctor ID")) return;
-        if (validation.isEmpty(docName, "Name")) return;
         if (!validation.isAlphabetic(docName, "Name")) return; 
-        if (validation.isEmpty(docSpecialist, "Specialist")) return;
         if (!validation.isAlphabetic(docSpecialist, "Specialist")) return; 
         if (validation.isEmpty(docWorkTime, "Work Time")) return;
-        if (validation.isEmpty(docQualification, "Qualification")) return;
         if (!validation.isAlphabetic(docQualification, "Qualification")) return; 
-        if (validation.isEmpty(docRoom, "Room Number")) return;
-        if (!validation.isNumeric(docRoom, "Room Number")) return;
+        if (!validation.isPositiveInteger(docRoom, "Room Number")) return;
         clearFields();
         
         Doctor[] doctors = HospitalManagement.getDoctors(); 
@@ -90,12 +86,12 @@ public class DoctorController {
         newDoc.newDoctor(id, name, specialist, workTime, qualification, Integer.parseInt(room));
         if(HospitalManagement.addDoctor(newDoc)) {
         	validation.addSuccessAlert("Doctor successfully added.");
+        	populateExistingDoctors();
+        	NavigationPrompt.showPostAddPrompt(event);
+            clearFields();
         }
         else
         	validation.addFailAlert("You have reached the maximum number of doctors added.");
-        
-        populateExistingDoctors();
-        clearFields();
     }
     
     private void clearFields() {
