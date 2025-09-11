@@ -96,11 +96,11 @@ public class HospitalManagement extends Application {
     }
     
     private static void initializeSampleData() {
-        // Create Doctor objects
-        doctors[0] = new Doctor();
-        doctors[1] = new Doctor();
-        doctors[2] = new Doctor();
-        
+		// Create Doctor objects
+		doctors[0] = new Doctor();
+		doctors[1] = new Doctor();
+		doctors[2] = new Doctor();
+		
 		doctors[0].newDoctor("604", "Cheng Chu Yang", "Student", "0800-1800", "Undergraduate", 1);
 		doctors[1].newDoctor("514", "Yeap Yun Ting", "Student", "0800-1800", "Undergraduate", 2);
 		doctors[2].newDoctor("001", "Ali", "Cardiologist", "0800-1800", "Phd", 3);
@@ -108,53 +108,69 @@ public class HospitalManagement extends Application {
 		docCount+=3;
 		
 		//Create labs
-        labs[0] = new Lab();
-        labs[1] = new Lab();
-        labs[2] = new Lab();
-        
-        labs[0].newLab("X-Ray", 80);
-        labs[1].newLab("Blood Test", 30);
-        labs[2].newLab("Urine Test", 40);
+		labs[0] = new Lab();
+		labs[1] = new Lab();
+		labs[2] = new Lab();
+		
+		labs[0].newLab("X-Ray", 80);
+		labs[1].newLab("Blood Test", 30);
+		labs[2].newLab("Urine Test", 40);
 		
 		labCount+=3;
 		
 		//Medicine
-	    medicines[0] = new Medicine();
-	    medicines[1] = new Medicine();
-	    medicines[2] = new Medicine();
+		medicines[0] = new Medicine();
+		medicines[1] = new Medicine();
+		medicines[2] = new Medicine();
+		
+		// Initialize medicines using newMedicine() method
+		medicines[0].newMedicine("Paracetamol", "PharmaCorp", "2025-12-31", 15, 100);
+		medicines[1].newMedicine("Amoxicillin", "MediHealth", "2024-06-30", 45, 50);
+		medicines[2].newMedicine("Ibuprofen", "QuickRelief", "2026-03-15", 25, 75);
+		
+		medCount += 3;
+		
+		// Create Patient objects
+		patients[0] = new Patient();
+		patients[1] = new Patient();
+		patients[2] = new Patient();
+		
+		// Initialize each Patient object with sample data using the newPatient method
+		patients[0].newPatient("P101", "John Smith", "Appendicitis", "Male", "Admitted", 25);
+		patients[1].newPatient("P102", "Jane Doe", "Pneumonia", "Female", "Admitted", 45);
+		patients[2].newPatient("P103", "Peter Jones", "Fractured Arm", "Male", "Discharged", 19);
+		
+		// Increment the patient counter by the number of new patients added
+		    patCount += 3;
+		    
+		 // Create Facility objects
+		facilities[0] = new Facility();
+		facilities[1] = new Facility();
+		facilities[2] = new Facility();
+		
+		// Initialize each Facility object with sample data using the newFacility method
+		facilities[0].newFacility("Main Hospital");
+		facilities[1].newFacility("Urgent Care Clinic");
+		facilities[2].newFacility("Rehabilitation Center");
+		
+		// Increment the facility counter by the number of new facilities added
+		facCount += 3;
 	    
-	    // Initialize medicines using newMedicine() method
-	    medicines[0].newMedicine("Paracetamol", "PharmaCorp", "2025-12-31", 15, 100);
-	    medicines[1].newMedicine("Amoxicillin", "MediHealth", "2024-06-30", 45, 50);
-	    medicines[2].newMedicine("Ibuprofen", "QuickRelief", "2026-03-15", 25, 75);
-	    
-	    medCount += 3;
-	    
-	    // Create Patient objects
-	    patients[0] = new Patient();
-	    patients[1] = new Patient();
-	    patients[2] = new Patient();
+		// Create staff objects
 
-	    // Initialize each Patient object with sample data using the newPatient method
-	    patients[0].newPatient("P101", "John Smith", "Appendicitis", "Male", "Admitted", 25);
-	    patients[1].newPatient("P102", "Jane Doe", "Pneumonia", "Female", "Admitted", 45);
-	    patients[2].newPatient("P103", "Peter Jones", "Fractured Arm", "Male", "Discharged", 19);
-
-	    // Increment the patient counter by the number of new patients added
-	    patCount += 3;
-	    
-	 // Create Facility objects
-	    facilities[0] = new Facility();
-	    facilities[1] = new Facility();
-	    facilities[2] = new Facility();
-
-	    // Initialize each Facility object with sample data using the newFacility method
-	    facilities[0].newFacility("Main Hospital");
-	    facilities[1].newFacility("Urgent Care Clinic");
-	    facilities[2].newFacility("Rehabilitation Center");
-
-	    // Increment the facility counter by the number of new facilities added
-	    facCount += 3;
+		Nurse nurse1 = new Nurse();
+		nurse1.newStaff("N731", "Sarah Johnson", "Registered Nurse", "Female", 4500, "Night Shift");
+		staffs[0] = nurse1;
+		
+		Pharmacist pharmacist1 = new Pharmacist();
+		pharmacist1.newStaff("P512", "Emily Chen", "Clinical Pharmacist", "Female", 6200, "LPH-12345");
+		staffs[1] = pharmacist1;
+		
+		Security security1 = new Security();
+		security1.newStaff("S404", "Mike Davis", "Security Guard", "Male", 2800, 5);
+		staffs[2] = security1;
+		
+		staffCount += 3;
 	}
     
     public static Doctor[] getDoctors() {
